@@ -3,10 +3,12 @@
 
     cx.view('menu', {
 
-        onItemClick: function() {
-            alert("Item was clicked!");
+        itemClick: function(params, e) {
+
+            console.log('menu was clicked', e);
+
         }
 
     });
 
-});
+})();

@@ -4,42 +4,57 @@
     var plugins = [];
 
     function cx() {
-        cx.init(plugins);
+        init(plugins);
     }
 
-    cx.plugin = function (name, plugin) {
-        plugins.push(plugin);
-    };
+    function init(plugins) {
+        plugins.forEach(function (plugin) {
+            if (plugin['init']) {
+                plugin.init();
+            }
+        });
+    }
 
-    cx.info = function () {
-        console.group('cx: info');
-        console.info("cx: loaded plugins:", plugins);
+    function registerPlugin(name, plugin) {
+        plugin.name = name;
+        plugins.push(plugin);
+
+        // extend the cx function with possible extensions from the plugin
+        if(plugin.extend) {
+            var extensions = plugin.extend();
+            for(var key in extensions) {
+                if(extensions.hasOwnProperty(key) && typeof cx[key] === 'undefined') {
+                    cx[key] = extensions[key];
+                }
+            }
+        }
+    }
+
+    function logInfo() {
+        console.group('cx info');
+        console.info("loaded plugins:");
+        console.dir(plugins);
         plugins.forEach(function (plugin) {
             if (plugin['info']) {
                 plugin.info();
             }
         });
         console.groupEnd();
-    };
-
-    cx.init = function (plugins) {
-        plugins.forEach(function (plugin) {
-            if (plugin['init']) {
-                plugin.init();
-            }
-        });
-    };
+    }
 
     window.cx = cx;
+    cx.plugin = registerPlugin;
+    cx.info = logInfo;
 })();
 
-// console shim @ http://stackoverflow.com/questions/8785624/how-to-safely-wrap-console-log
+// console shim
+// http://stackoverflow.com/questions/8785624/how-to-safely-wrap-console-log
 (function () {
     var f = function () {
     };
     if (!window.console) {
         window.console = {
-            log: f, info: f, warn: f, debug: f, error: f, group: f, groupEnd: f
+            log: f, info: f, warn: f, debug: f, error: f, group: f, groupEnd: f, dir: f
         };
     }
 }());
