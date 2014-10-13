@@ -38,10 +38,16 @@
         if (!e.target.hasAttribute('data-action')) {
             return;
         }
-        var elmView = closest(e.target, '[data-view]');
+        var elmView = util.closest(e.target, '[data-view]');
         var actionName = e.target.getAttribute('data-action');
-        if (typeof elmView.view[actionName] !== 'undefined') {
-            elmView.view[actionName]({}, e);
+        var params = util.getDataAttributes(e.target);
+        delete params['action'];
+        emitAction(elmView, actionName, params, e);
+    }
+
+    function emitAction(elm, actionName, params, e) {
+        if (typeof elm.view[actionName] !== 'undefined') {
+            elm.view[actionName](params, e);
         }
     }
 
@@ -86,17 +92,38 @@
         }
     }
 
-    // http://stackoverflow.com/questions/15329167/closest-ancestor-matching-selector-using-native-dom
-    function closest(elm, selector) {
-        var matchesSelector = elm.matches || elm.webkitMatchesSelector || elm.mozMatchesSelector || elm.msMatchesSelector;
-        while (elm) {
-            if (matchesSelector.bind(elm)(selector)) {
-                return elm;
-            } else {
-                elm = elm.parentElement;
+    var util = {
+        // http://stackoverflow.com/questions/15329167/closest-ancestor-matching-selector-using-native-dom
+        closest: function (elm, selector) {
+            var matchesSelector = elm.matches || elm.webkitMatchesSelector || elm.mozMatchesSelector || elm.msMatchesSelector;
+            while (elm) {
+                if (matchesSelector.bind(elm)(selector)) {
+                    return elm;
+                } else {
+                    elm = elm.parentElement;
+                }
             }
+            return false;
+        },
+
+        // http://stackoverflow.com/questions/4187032/get-list-of-data-attributes-using-javascript-jquery
+        toCamelCase: function (str) {
+            return str.substr(5).replace(/-(.)/g, function ($0, $1) {
+                return $1.toUpperCase();
+            });
+        },
+
+        // http://stackoverflow.com/questions/4187032/get-list-of-data-attributes-using-javascript-jquery
+        getDataAttributes: function (elm) {
+            var data = {};
+            [].forEach.call(elm.attributes, function (attr) {
+                if (/^data-/.test(attr.name)) {
+                    data[util.toCamelCase(attr.name)] = attr.value;
+                }
+            });
+            return data;
         }
-        return false;
+
     }
 
 })();

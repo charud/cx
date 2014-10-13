@@ -3,9 +3,9 @@
 
     cx.view('menu', {
 
-        itemClick: function(params, e) {
+        itemClick: function(data, e) {
 
-            console.log('menu was clicked', e);
+            console.log('menu was clicked with params', data);
 
         }
 
