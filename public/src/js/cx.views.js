@@ -24,7 +24,7 @@
         }
     });
 
-    function bindRoot(view) {
+    function bindRoot() {
         root.addEventListener('click', onRootEvent);
     }
 
@@ -46,8 +46,11 @@
     }
 
     function emitAction(elm, actionName, params, e) {
-        if (typeof elm.view[actionName] !== 'undefined') {
-            elm.view[actionName](params, e);
+        var actionNameKey = util.toCamelCase('on-' + actionName);
+        if (typeof elm.view[actionNameKey] !== 'undefined') {
+            elm.view[actionNameKey](params, e);
+        } else {
+            console.log('Action ', actionNameKey, 'not found on view', elm.view);
         }
     }
 
@@ -70,7 +73,9 @@
         var View = function () {
         };
         for (var key in viewObject) {
-            View.prototype[key] = viewObject[key];
+            if(viewObject.hasOwnProperty(key)) {
+                View.prototype[key] = viewObject[key];
+            }
         }
         views[name] = View;
     }
@@ -108,7 +113,7 @@
 
         // http://stackoverflow.com/questions/4187032/get-list-of-data-attributes-using-javascript-jquery
         toCamelCase: function (str) {
-            return str.substr(5).replace(/-(.)/g, function ($0, $1) {
+            return str.replace(/-(.)/g, function ($0, $1) {
                 return $1.toUpperCase();
             });
         },
@@ -118,7 +123,7 @@
             var data = {};
             [].forEach.call(elm.attributes, function (attr) {
                 if (/^data-/.test(attr.name)) {
-                    data[util.toCamelCase(attr.name)] = attr.value;
+                    data[util.toCamelCase(attr.name.substr(5))] = attr.value;
                 }
             });
             return data;

@@ -3,10 +3,8 @@
 
     cx.view('menu', {
 
-        itemClick: function(data, e) {
-
+        onItemClick: function(data, e) {
             console.log('menu was clicked with params', data);
-
         }
 
     });
