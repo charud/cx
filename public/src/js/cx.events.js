@@ -29,7 +29,7 @@
 		elm.addEventListener(name, function (e) {
 			d.resolve(e);
 		});
-		return d;
+		return d.promise;
 	}
 
 	function emitEvent(elm, name, params) {
