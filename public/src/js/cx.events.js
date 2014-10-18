@@ -2,7 +2,6 @@
 	"use strict";
 
 	cx.plugin('events', {
-
 		init: function () {
 
 			// Move D from global namespace into the cx namepsace
@@ -19,21 +18,22 @@
 
 		extend: function () {
 			return {
-				event: {
-					onEvent: onEvent,
-					emitEvent: emitEvent
-				}
+				onEvent: onEvent,
+				emitEvent: emitEvent
 			}
 		}
 	});
 
 	function onEvent(elm, name) {
 		var d = D();
-
+		elm.addEventListener(name, function (e) {
+			d.resolve(e);
+		});
+		return d;
 	}
 
-	function emitEvent() {
-
+	function emitEvent(elm, name, params) {
+		elm.dispatchEvent(new CustomEvent(name, params));
 	}
 
 })();
