@@ -5,8 +5,12 @@
 
 	};
 
+	Tabs.prototype.init = function() {
+
+	};
+
 	Tabs.prototype.onSelect = function(data, e) {
-		this.findArea('body').innerHTML = this.findArea(data.name).innerHTML;
+		this.findArea('body').innerHTML = this.findArea(data.target).innerHTML;
 	};
 
 	cx.view('tabs', Tabs);
