@@ -4,9 +4,9 @@
     cx.view('menu', {
 
 		init: function() {
-			cx.onEvent(this.elm, 'click').then(function() {
+			cx.onEvent(this.elm, 'click', function() {
 				alert('Clicked');
-			})
+			});
 		},
 
         onItemClick: function(data, e) {
