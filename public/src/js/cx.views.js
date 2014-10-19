@@ -83,10 +83,15 @@
 	function registerView(name, viewObject) {
 		var View = function () {
 		};
-		for (var key in viewObject) {
-			if (viewObject.hasOwnProperty(key)) {
-				View.prototype[key] = viewObject[key];
+
+		if (typeof(viewObject) == 'object') {
+			for (var key in viewObject) {
+				if (viewObject.hasOwnProperty(key)) {
+					View.prototype[key] = viewObject[key];
+				}
 			}
+		} else if (typeof(viewObject) == 'function') {
+			View = viewObject;
 		}
 		views[name] = View;
 	}

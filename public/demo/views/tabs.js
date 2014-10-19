@@ -5,10 +5,10 @@
 
 	};
 
-	Tabs.prototype.onTabClick = function() {
-
+	Tabs.prototype.onSelect = function() {
+		console.log("tab selected");
 	};
 
-	cx.view('Tabs', Tabs);
+	cx.view('tabs', Tabs);
 
 })();
