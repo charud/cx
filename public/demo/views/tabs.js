@@ -16,3 +16,4 @@
 	cx.view('tabs', Tabs);
 
 })();
+

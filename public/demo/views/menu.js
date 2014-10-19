@@ -1,6 +1,12 @@
 (function() {
    "use strict";
 
+	cx.view('menu', function() {
+		this.onItemClick = function() {
+			console.log('hej');
+		};
+	});
+
     cx.view('menu', {
 
 		init: function() {
@@ -10,7 +16,7 @@
 		},
 
         onItemClick: function(data, e) {
-            console.log('menu was clicked with params', data);
+			console.log('A menu item was clicked with params', data);
         }
 
     });
