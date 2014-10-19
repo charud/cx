@@ -93,6 +93,11 @@
 		} else if (typeof(viewObject) == 'function') {
 			View = viewObject;
 		}
+
+		View.prototype.findArea = function (name) {
+			return this.elm.querySelector('[data-area=' + name + ']');
+		}
+
 		views[name] = View;
 	}
 
@@ -109,6 +114,7 @@
 			var View = views[viewName];
 			var view = new View();
 			view.elm = elm;
+
 			Object.defineProperty(elm, 'view', {value: view});
 			viewInstances.push(view);
 		}

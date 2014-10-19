@@ -5,8 +5,8 @@
 
 	};
 
-	Tabs.prototype.onSelect = function() {
-		console.log("tab selected");
+	Tabs.prototype.onSelect = function(data, e) {
+		this.findArea('body').innerHTML = this.findArea(data.name).innerHTML;
 	};
 
 	cx.view('tabs', Tabs);
