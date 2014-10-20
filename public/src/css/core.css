@@ -1,7 +1,8 @@
 html, body {
 	font-family: helvetica, arial, sans-serif;
 	font-size: 100%;
-	color: #333;
+	color: #444;
+	background-color: #eee;
 }
 
 h1 {

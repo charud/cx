@@ -1,0 +1,22 @@
+.tabs {
+
+}
+
+.tabs-items {
+	overflow: hidden;
+}
+
+.tabs-item {
+	padding: 8px;
+	float: left;
+}
+
+.tabs-item:hover, .tabs-item.is-selected  {
+	background-color: #78aaee;
+	color: white;
+}
+
+.tabs-body {
+	border: 1px solid #78aaee;
+	padding: 8px;
+}

@@ -96,6 +96,17 @@
 			View = viewObject;
 		}
 
+		View.prototype.find = function(selector) {
+			// convert the nodeList to a more manageable array
+			var nodeList = this.elm.querySelectorAll(selector);
+			var arr = Array.prototype.slice.call(nodeList);
+			return arr;
+		};
+
+		View.prototype.findFirst = function(selector) {
+			return this.elm.querySelector(selector);
+		}
+
 		/**
 		 * Find and return an area or write to
 		 * its innerHTML if valueOrPromise is specified

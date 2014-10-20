@@ -1,0 +1,12 @@
+.btn {
+	padding: 8px;
+}
+
+.btn:hover {
+	background-color: #78aaee;
+	color: white;
+}
+
+.btn.is-selected {
+	background-color: #78aaee;
+}
