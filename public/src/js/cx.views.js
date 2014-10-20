@@ -119,11 +119,12 @@
 		View.prototype.area = function (name, valueOrPromise) {
 			var elmArea = this.elm.querySelector('[data-area=' + name + ']');
 			if (valueOrPromise) {
-				// unwrap the value if it is a promise
-				if (valueOrPromise['then']) {
+				// unbox the value if it is a promise
+				if (valueOrPromise.then) {
 					valueOrPromise.then(function (value) {
 						elmArea.innerHTML = value;
 					});
+				// or if an element, use its innerHTML
 				} else if(valueOrPromise['innerHTML']) {
 					elmArea.innerHTML = valueOrPromise.innerHTML;
 				} else {
