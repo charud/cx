@@ -6,6 +6,9 @@ A frontend framework with maintainability, flexibility and simplicity in mind
 Views
 ==
 
+
+Definition
+--
 There are three ways to define a View:
 
 Using a function:
@@ -41,13 +44,11 @@ on the object will be moved over to its prototype. This will give your methods a
 a 'this' context that points to your view.
 
 The view object contains the 'elm' property which points to the HTML element that the
-current view instance is working with. It also contains the following helpers methods:
+current view instance is working with.
 
-- findArea(name)
-	Will return the first element in the current view with a _data-area_ value
-	that matches the name supplied.
-
-In addition events can be triggered using the data-action attribute. When an element with
+Actions
+--
+Events can be triggered using the data-action attribute. When an element with
 a data-action attribute is clicked the event will be routed to its corresponding camel-cased
 method in the view. A click on a the following div:
 
@@ -77,6 +78,29 @@ And
 			this.elm.innerHTML = data.name + ' was pressed!';
 		}
 	});
+
+Areas
+--
+By putting a data-area attribute on an element in your view you can make it
+easily referenceable from your View code:
+
+	<div data-view="foo">
+		<div data-area='myArea'></div>
+	</div>
+
+And
+
+	cx.view('foo', {
+		init: function() {
+			this.findArea('myArea').innerHTML = 'foobar';
+		}
+	});
+
+The findArea method will return the first element in the current view with a _data-area_ value
+that matches the name supplied.
+
+Example
+--
 
 The following tab module is an example of these concepts working together
 
