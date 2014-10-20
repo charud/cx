@@ -1,12 +1,6 @@
 (function() {
    "use strict";
 
-	cx.view('menu', function() {
-		this.onItemClick = function() {
-			console.log('hej');
-		};
-	});
-
     cx.view('menu', {
 
 		init: function() {

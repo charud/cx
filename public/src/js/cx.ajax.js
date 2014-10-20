@@ -23,11 +23,11 @@
 			var req = new XMLHttpRequest();
 			req.open(method, url, true);
 			req.onreadystatechange = function () {
-				if (req.readyState === 4) {
+				if (req.readyState === req.DONE) {
 					if (req.status >= 400) {
 						reject(req);
 					} else if (req.status >= 200) {
-						resolve(req);
+						resolve(req.response);
 					}
 				}
 			};

@@ -94,9 +94,29 @@
 			View = viewObject;
 		}
 
-		View.prototype.findArea = function (name) {
-			return this.elm.querySelector('[data-area=' + name + ']');
-		}
+		/**
+		 * Find and return an area or write to
+		 * its innerHTML if valueOrPromise is specified
+		 * @param name
+		 * @param {valueOrPromise} If specified this value will be set as the new innerHTML for the element (and first unwrapped if a promise)
+		 * @returns {HTMLElement}
+		 */
+		View.prototype.area = function (name, valueOrPromise) {
+			var elmArea = this.elm.querySelector('[data-area=' + name + ']');
+			if (valueOrPromise) {
+				// unwrap the value if it is a promise
+				if (valueOrPromise['then']) {
+					valueOrPromise.then(function (value) {
+						elmArea.innerHTML = value;
+					});
+					// otherwise just assign
+				} else {
+					elmArea.innerHTML = valueOrPromise;
+				}
+			} else {
+				return elmArea;
+			}
+		};
 
 		views[name] = View;
 	}

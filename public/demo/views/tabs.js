@@ -10,7 +10,7 @@
 	};
 
 	Tabs.prototype.onSelect = function(data, e) {
-		this.findArea('body').innerHTML = this.findArea(data.target).innerHTML;
+		this.area('body', this.area(data.target).innerHTML);
 	};
 
 	cx.view('tabs', Tabs);
