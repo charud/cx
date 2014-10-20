@@ -11,7 +11,7 @@ Definition
 --
 There are three ways to define a View:
 
-* By defining a function and pass it to the view function:
+By defining a function and pass it to the view function:
 
 	function Menu() {
 
@@ -23,7 +23,7 @@ There are three ways to define a View:
 
 	cx.view('menu', Menu);
 
-* By providing a function directly to the view function:
+By providing a function directly to the view function:
 
 	cx.view('menu', function() {
 		this.onSelectItem = function() {
@@ -31,7 +31,7 @@ There are three ways to define a View:
     	};
 	});
 
-* Or by providing an object:
+Or by providing an object:
 
 	cx.view('menu', {
 		onSelectItem: function(data, e) {
