@@ -104,21 +104,13 @@ Example
 
 The following tab module is an example of these concepts working together
 
-Javascript:
-
-	cx.view('tabs', {
-		onSelect: function() {
-			this.findArea('body').innerHTML = this.findArea(data.target).innerHTML;
-		}
-	});
-
 HTML:
 
 	<div data-view="tabs">
         <div>
-            <div data-action="select" data-target="tab1">Tab 1</div>
-            <div data-action="select" data-target="tab2">Tab 2</div>
-            <div data-action="select" data-target="tab3">Tab 3</div>
+            <div data-action="select-tab" data-target="tab1">Tab 1</div>
+            <div data-action="select-tab" data-target="tab2">Tab 2</div>
+            <div data-action="select-tab" data-target="tab3">Tab 3</div>
         </div>
         <div data-area="tab1" style="display: none">The first tab</div>
         <div data-area="tab2" style="display: none">The second tab</div>
@@ -126,6 +118,13 @@ HTML:
         <div data-area="body"></div>
     </div>
 
+Javascript:
+
+	cx.view('tabs', {
+		onSelectTab: function() {
+			this.findArea('body').innerHTML = this.findArea(data.target).innerHTML;
+		}
+	});
 
 
 License
