@@ -19,15 +19,15 @@ initialization code in the optional Menu.prototype.init() method
 where _this.elm_ will be available.
 
 ```
-	function Menu() {
+function Menu() {
 
-	}
+}
 
-	Menu.prototype.onSelectItem = function(data, e) {
-		console.log(data, this.elm);
-	}
+Menu.prototype.onSelectItem = function(data, e) {
+	console.log(data, this.elm);
+}
 
-	cx.view('menu', Menu);
+cx.view('menu', Menu);
 ```
 
 #### By providing an object
@@ -36,23 +36,23 @@ over to its prototype. This will give your methods access to a 'this' context
 that points to your view.
 
 ```
-	cx.view('menu', {
-		onSelectItem: function(data, e) {
-			console.log(data, this.elm);
+cx.view('menu', {
+	onSelectItem: function(data, e) {
+		console.log(data, this.elm);
         }
-	};
+};
 ```
 
-#### By providing an anonymous function:
+#### By providing an anonymous function
 And pass it directly to the view function. This is the least performant option since this function
 will be redefined for every instance of the view that is created.
 
 ```
-	cx.view('menu', function() {
-		this.onSelectItem = function() {
-			console.log(data, this.elm);
-    		};
-	});
+cx.view('menu', function() {
+	this.onSelectItem = function() {
+		console.log(data, this.elm);
+    	};
+});
 ```
 
 The view object contains the 'elm' property which points to the HTML element that the
