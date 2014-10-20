@@ -11,43 +11,49 @@ Definition
 --
 There are three ways to define a View:
 
-- By defining a function and pass it to the view function:
-This option makes it possible to define code to be run when the view
-is registered (inside the main function). If you need access to the views
-html element you will need to put your initialization code in the optional
-Menu.prototype.init() method where _this.elm_ will be available.
+#### By defining a function 
+And pass it to the view function. This option makes it possible to define 
+code to be run when the view is registered (inside the main function). 
+If you need access to the views html element you will need to put your 
+initialization code in the optional Menu.prototype.init() method 
+where _this.elm_ will be available.
 
-	function Menu() {
+```
+function Menu() {
 
-	}
+}
 
-	Menu.prototype.onSelectItem = function(data, e) {
-		console.log(data, this.elm);
-	}
+Menu.prototype.onSelectItem = function(data, e) {
+	console.log(data, this.elm);
+}
 
-	cx.view('menu', Menu);
+cx.view('menu', Menu);
+```
 
-- By providing an object:
+#### By providing an object
 An empty function will be created and the methods on the object will be moved
 over to its prototype. This will give your methods access to a 'this' context
 that points to your view.
 
-	cx.view('menu', {
-		onSelectItem: function(data, e) {
-			console.log(data, this.elm);
+```
+cx.view('menu', {
+	onSelectItem: function(data, e) {
+		console.log(data, this.elm);
         }
-	};
+};
+```
 
-- Or by providing a function directly to the view function:
-This is the least performant option since these functions are redefined
-for every instance of the view that is created.
+#### By providing an anonymous function
+And pass it directly to the view function. This is the least performant option since this function
+will be redefined for every instance of the view that is created.
 
-	cx.view('menu', function() {
-		this.onSelectItem = function() {
-			console.log(data, this.elm);
+```
+cx.view('menu', function() {
+	this.onSelectItem = function() {
+		console.log(data, this.elm);
     	};
-	});
-
+});
+```
 
 The view object contains the 'elm' property which points to the HTML element that the
 current view instance is working with.
@@ -70,7 +76,7 @@ Will trigger the method in the following example view:
 		}
 	});
 
-### Parameters
+#### Parameters
 Parameters can be passed using data attributes:
 
 	<div data-view='foo'>
