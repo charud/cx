@@ -8,7 +8,6 @@
     }
 
     function init(plugins) {
-        // Iniitalize events
 		plugins.forEach(function (plugin) {
             if (plugin['init']) {
                 plugin.init();
