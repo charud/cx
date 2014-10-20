@@ -11,7 +11,7 @@ Definition
 --
 There are three ways to define a View:
 
-Using a function:
+By defining a function and pass it to the view function:
 
 	function Menu() {
 
@@ -23,21 +23,21 @@ Using a function:
 
 	cx.view('menu', Menu);
 
-Using an object directly in the register function:
-
-	cx.view('menu', {
-		onSelectItem: function(data, e) {
-			console.log('Item selected with params', data, 'Menu element: ', this.elm);
-		}
-	};
-
-Or using a function directly in the register function:
+By providing a function directly to the view function:
 
 	cx.view('menu', function() {
 		this.onItemClick = function() {
 			console.log('Item selected with params', data, 'Menu element: ', this.elm);
     	};
 	});
+
+Or by providing an object:
+
+	cx.view('menu', {
+		onSelectItem: function(data, e) {
+			console.log('Item selected with params', data, 'Menu element: ', this.elm);
+		}
+	};
 
 If an object is passed to cx.view an empty function will be created and the methods
 on the object will be moved over to its prototype. This will give your methods access to
