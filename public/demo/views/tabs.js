@@ -17,7 +17,7 @@
 
 	Tabs.prototype.showTab = function (name) {
 		this.area('body', this.area(name));
-	}
+	};
 
 	cx.view('tabs', Tabs);
 

@@ -10,3 +10,13 @@
 .hidden {
 	display: none;
 }
+
+.btn {
+	background-color: #ccc;
+	border: 1px outset #ccc;
+	padding: 4px;
+}
+
+*[data-action] {
+	cursor: pointer;
+}
