@@ -1,0 +1,12 @@
+/* horizontal list */
+.l-hlist {
+	overflow: hidden;
+}
+
+.l-hlist .l-hlist-item {
+	float: left;
+}
+
+.hidden {
+	display: none;
+}

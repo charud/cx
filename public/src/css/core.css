@@ -1,0 +1,9 @@
+html, body {
+	font-family: helvetica, arial, sans-serif;
+	font-size: 100%;
+	color: #333;
+}
+
+h1 {
+	font-size: 1.3rem;
+}

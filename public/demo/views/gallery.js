@@ -5,6 +5,10 @@
 
 		var curIndex = 0;
 
+		this.init = function() {
+			this.showSlide(0);
+		};
+
 		this.onPrev = function () {
 			this.showSlide(curIndex - 1);
 		};

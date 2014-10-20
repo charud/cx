@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head></head>
+<head>
+    <link rel="stylesheet" href="src/css/core.css" />
+    <link rel="stylesheet" href="src/css/modules.css" />
+</head>
 <body>
 
-<div data-view="menu">
-    <div data-action="item-click" data-name="start">Start</div>
-    <div data-action="item-click" data-name="articles">Articles</div>
-    <div data-action="item-click" data-name="about">About</div>
+<h1>Menu</h1>
+<div data-view="menu" class="l-hlist">
+    <div data-action="item-click" data-name="start" class="l-hlist-item">Start</div>
+    <div data-action="item-click" data-name="articles" class="l-hlist-item">Articles</div>
+    <div data-action="item-click" data-name="about" class="l-hlist-item">About</div>
 </div>
 
-<div data-view="tabs">
-    <div>
-        <div data-action="select" data-target="tab1">Tab 1</div>
-        <div data-action="select" data-target="tab2">Tab 2</div>
-        <div data-action="select" data-target="tab3">Tab 3</div>
+
+<h1>Tabs</h1>
+<div data-view="tabs" data-show="tab1">
+    <div class="l-hlist">
+        <div data-action="select" data-target="tab1" class="l-hlist-item">Tab 1</div>
+        <div data-action="select" data-target="tab2" class="l-hlist-item">Tab 2</div>
+        <div data-action="select" data-target="tab3" class="l-hlist-item">Tab 3</div>
     </div>
-    <div data-area="tab1" style="display: none">The first tab</div>
-    <div data-area="tab2" style="display: none">The second tab</div>
-    <div data-area="tab3" style="display: none">The third tab</div>
+    <div data-area="tab1" class="hidden">The first tab</div>
+    <div data-area="tab2" class="hidden">The second tab</div>
+    <div data-area="tab3" class="hidden">The third tab</div>
     <div data-area="body"></div>
 </div>
 
+<h1>Gallery</h1>
 <div data-view="gallery">
-    <div data-action="prev">Previous</div>
-    <div data-action="next">Next</div>
     <div data-area="body"></div>
+    <div class="l-hlist">
+        <div data-action="prev" class="l-hlist-item">Previous</div>
+        <div data-action="next" class="l-hlist-item">Next</div>
+    </div>
 </div>
 
 <script src="src/js/lib/rsvp.js"></script>

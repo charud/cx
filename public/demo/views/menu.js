@@ -5,7 +5,7 @@
 
 		init: function() {
 			cx.onEvent(this.elm, 'click', function() {
-				alert('Clicked');
+				console.log('clicked');
 			});
 		},
 

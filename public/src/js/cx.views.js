@@ -19,8 +19,10 @@
 			bindRoot();
 
 			for (var i in viewInstances) {
-				if (viewInstances[i]['init']) {
-					viewInstances[i]['init']();
+				var viewInstance = viewInstances[i];
+				if (viewInstance.init) {
+					var data = util.getDataAttributes(viewInstance.elm);
+					viewInstance.init(data);
 				}
 			}
 		},
@@ -98,7 +100,9 @@
 		 * Find and return an area or write to
 		 * its innerHTML if valueOrPromise is specified
 		 * @param name
-		 * @param {valueOrPromise} If specified this value will be set as the new innerHTML for the element (and first unwrapped if a promise)
+		 * @param {valueOrPromise} If specified this value will be set as the new innerHTML for
+		 * the element (and first unwrapped if it is a promise). Can also be set to an html element in which
+		 * case the html elements innerHTML property will be used. This way an area can be assigned to another area easily.
 		 * @returns {HTMLElement}
 		 */
 		View.prototype.area = function (name, valueOrPromise) {
@@ -109,7 +113,8 @@
 					valueOrPromise.then(function (value) {
 						elmArea.innerHTML = value;
 					});
-					// otherwise just assign
+				} else if(valueOrPromise['innerHTML']) {
+					elmArea.innerHTML = valueOrPromise.innerHTML;
 				} else {
 					elmArea.innerHTML = valueOrPromise;
 				}
