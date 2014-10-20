@@ -16,8 +16,13 @@
 	};
 
 	Tabs.prototype.showTab = function (name) {
-		// display the correct tab contents
-		this.area('body', this.area(name));
+
+		// display the correct tab contents or load from an url if specified
+		var newContent = this.area(name);
+		if (newContent.getAttribute('data-url')) {
+			newContent = cx.get(newContent.getAttribute('data-url'));
+		}
+		this.area('body', newContent);
 
 		// update selection to match the now selected tab
 		this.find('[data-target]').forEach(function (elm) {
