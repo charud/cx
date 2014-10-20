@@ -11,7 +11,7 @@ Definition
 --
 There are three ways to define a View:
 
-By defining a function and pass it to the view function:
+* By defining a function and pass it to the view function:
 
 	function Menu() {
 
@@ -23,15 +23,15 @@ By defining a function and pass it to the view function:
 
 	cx.view('menu', Menu);
 
-By providing a function directly to the view function:
+* By providing a function directly to the view function:
 
 	cx.view('menu', function() {
-		this.onItemClick = function() {
+		this.onSelectItem = function() {
 			console.log('Item selected with params', data, 'Menu element: ', this.elm);
     	};
 	});
 
-Or by providing an object:
+* Or by providing an object:
 
 	cx.view('menu', {
 		onSelectItem: function(data, e) {
@@ -64,6 +64,7 @@ Will trigger the method in the following example view:
 		}
 	});
 
+### Parameters
 Parameters can be passed using data attributes:
 
 	<div data-view='foo'>
