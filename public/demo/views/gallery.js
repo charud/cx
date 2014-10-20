@@ -5,7 +5,8 @@
 
 		var curIndex = 0;
 
-		this.init = function() {
+		this.init = function (data) {
+			this.url = data.url;
 			this.showSlide(0);
 		};
 
@@ -19,7 +20,7 @@
 
 		this.showSlide = function (index) {
 			curIndex = index;
-			this.area('body', cx.get('/gallery/' + index));
+			this.area('body', cx.get(this.url.replace(':index', index)));
 		};
 
 	});
