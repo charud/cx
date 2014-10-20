@@ -18,7 +18,7 @@ By defining a function and pass it to the view function:
 	}
 
 	Menu.prototype.onSelectItem = function(data, e) {
-		console.log('Item selected with params', data, 'Menu element', this.elm);
+		console.log(data, this.elm);
 	}
 
 	cx.view('menu', Menu);
@@ -27,7 +27,7 @@ By providing a function directly to the view function:
 
 	cx.view('menu', function() {
 		this.onSelectItem = function() {
-			console.log('Item selected with params', data, 'Menu element: ', this.elm);
+			console.log(data, this.elm);
     	};
 	});
 
@@ -35,8 +35,8 @@ Or by providing an object:
 
 	cx.view('menu', {
 		onSelectItem: function(data, e) {
-			console.log('Item selected with params', data, 'Menu element: ', this.elm);
-		}
+			console.log(data, this.elm);
+        }
 	};
 
 If an object is passed to cx.view an empty function will be created and the methods
