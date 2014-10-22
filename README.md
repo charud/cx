@@ -144,6 +144,21 @@ Javascript:
 	});
 
 
+Events
+--
+
+Custom events can be triggered or listened to by using the event module
+
+	cx.emitEvent([eventName], [eventParameters]);
+	
+	cx.onEvent([eventName], [callback]);
+	
+Example:
+
+	cx.onEvent('selected', function(params) { console.log(params.foo, ' was selected'); } );
+	
+	cx.emitEvent('selected', { foo: 'bar' });
+	
 License
 ==
 
