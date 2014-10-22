@@ -39,7 +39,7 @@ that points to your view.
 cx.view('menu', {
 	onSelectItem: function(data, e) {
 		console.log(data, this.elm);
-        }
+	}
 };
 ```
 
@@ -51,7 +51,7 @@ will be redefined for every instance of the view that is created.
 cx.view('menu', function() {
 	this.onSelectItem = function() {
 		console.log(data, this.elm);
-    	};
+	};
 });
 ```
 
