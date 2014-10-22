@@ -105,12 +105,16 @@ And
 
 	cx.view('foo', {
 		init: function() {
-			this.findArea('myArea').innerHTML = 'foobar';
+			this.area('myArea').innerHTML = 'foobar';
 		}
 	});
 
-The findArea method will return the first element in the current view with a _data-area_ value
-that matches the name supplied.
+The area method will return the first element in the current view with a _data-area_ value
+that matches the name supplied. If a second parameter is supplied the area's innerHTML will be set to that parameter's value. A promise or another element (such as another area) can also be passed:
+
+	this.area('myArea', 'myValue'); // pure value
+	this.area('myArea', cx.get('/myArea/1')); // promise
+	this.area('myArea', this.area('anotherArea')); // another element
 
 Example
 --
@@ -135,7 +139,7 @@ Javascript:
 
 	cx.view('tabs', {
 		onSelectTab: function() {
-			this.findArea('body').innerHTML = this.findArea(data.target).innerHTML;
+			this.area('body', this.area(data.target));
 		}
 	});
 
