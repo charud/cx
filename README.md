@@ -149,15 +149,19 @@ Events
 
 Custom events can be triggered or listened to by using the event module
 
-	cx.emitEvent([eventName], [eventParameters]);
+	cx.emitEvent([elm], [eventName], [eventParameters]);
 	
-	cx.onEvent([eventName], [callback]);
+	cx.onEvent([elm], [eventName], [callback]);
 	
 Example:
 
-	cx.onEvent('selected', function(params) { console.log(params.foo, ' was selected'); } );
+	var myDiv = document.getElementById('someDiv');
+
+	cx.onEvent(myDiv, 'selected', function(params) { 
+		console.log(params.foo, ' was selected'); 
+	});
 	
-	cx.emitEvent('selected', { foo: 'bar' });
+	cx.emitEvent(myDiv, 'selected', { foo: 'bar' });
 	
 License
 ==
