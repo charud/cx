@@ -51,6 +51,8 @@
 		if (!e.target.hasAttribute('data-action')) {
 			return;
 		}
+		e.stopPropagation();
+		e.preventDefault();
 		var elmView = util.closest(e.target, '[data-view]');
 		var actionName = e.target.getAttribute('data-action');
 		var params = util.getDataAttributes(e.target);
