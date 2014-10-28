@@ -1,0 +1,29 @@
+{
+	"name": "cx",
+	"version": "0.0.0",
+	"homepage": "https://github.com/charlie-rudenstal/cx",
+	"authors": [
+		"Charlie Rudenstål <charlie4@gmail.com>"
+	],
+	"main": [
+		"src/cx.js",
+		"src/cx.views.js",
+		"src/cx.events.js",
+		"src/cx.ajax.js"
+	],
+	"license": "MIT",
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests",
+		"public",
+		"package.json",
+		"todo",
+		"app.js"
+	],
+	"dependencies": {
+		"rsvp": "~3.0.13"
+	}
+}
