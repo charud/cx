@@ -1,0 +1,5 @@
+<div data-view>
+$(widget.elm)
+widget.prototype.staticInit
+this.params from json script tag
+initialize widgets loaded by ajax
