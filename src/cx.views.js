@@ -58,14 +58,21 @@
 	 * @param e
 	 */
 	function onRootEvent(e) {
+		var elmAction = e.target;
 		if (!e.target.hasAttribute('data-action')) {
-			return;
+			// if the elment that triggered the event doesn't have a data-action
+			// look if any of its parents has it
+			elmAction = util.closest(elmAction, '[data-action]');
+			if(!elmAction) {
+				// there are no data-actions defined for this event, ignore the event
+				return;
+			}
 		}
 		e.stopPropagation();
 		e.preventDefault();
-		var elmView = util.closest(e.target, '[data-view]');
-		var actionName = e.target.getAttribute('data-action');
-		var params = util.getDataAttributes(e.target);
+		var elmView = util.closest(elmAction, '[data-view]');
+		var actionName = elmAction.getAttribute('data-action');
+		var params = util.getDataAttributes(elmAction);
 		delete params['action'];
 		emitAction(elmView, actionName, params, e);
 	}
