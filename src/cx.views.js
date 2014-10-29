@@ -158,6 +158,10 @@
 			}
 		};
 
+		View.prototype.areas = function(name) {
+			return this.elm.querySelectorAll('[data-area=' + name + ']');
+		};
+
 		views[name] = View;
 	}
 
