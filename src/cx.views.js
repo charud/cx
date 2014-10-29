@@ -1,6 +1,16 @@
 (function () {
 	"use strict";
 
+	window.cx = window.cx || {};
+
+	// this code is used when this plugin is loaded before the cx.js main file is loaded
+	if (!cx.plugin) {
+		cx.pluginsToLoad = cx.pluginsToLoad || {};
+		cx.plugin = function (name, plugin) {
+			cx.pluginsToLoad[name] = plugin;
+		}
+	}
+
 	// Registered base views
 	var views = {};
 
@@ -62,10 +72,14 @@
 
 	function emitAction(elm, actionName, params, e) {
 		var actionNameKey = util.toCamelCase('on-' + actionName);
-		if (typeof elm.view[actionNameKey] !== 'undefined') {
-			elm.view[actionNameKey](params, e);
+		if (elm.view) {
+			if (typeof elm.view[actionNameKey] !== 'undefined') {
+				elm.view[actionNameKey](params, e);
+			} else {
+				console.log('Action ', actionNameKey, 'not found on view', elm.view);
+			}
 		} else {
-			console.log('Action ', actionNameKey, 'not found on view', elm.view);
+			console.log('View ', elm.getAttribute('data-view') ,' for element', elm, ' not found');
 		}
 	}
 
@@ -98,14 +112,14 @@
 			View = viewObject;
 		}
 
-		View.prototype.find = function(selector) {
+		View.prototype.find = function (selector) {
 			// convert the nodeList to a more manageable array
 			var nodeList = this.elm.querySelectorAll(selector);
 			var arr = Array.prototype.slice.call(nodeList);
 			return arr;
 		};
 
-		View.prototype.findFirst = function(selector) {
+		View.prototype.findFirst = function (selector) {
 			return this.elm.querySelector(selector);
 		}
 
@@ -126,8 +140,8 @@
 					valueOrPromise.then(function (value) {
 						elmArea.innerHTML = value;
 					});
-				// or if an element, use its innerHTML
-				} else if(valueOrPromise['innerHTML']) {
+					// or if an element, use its innerHTML
+				} else if (valueOrPromise['innerHTML']) {
 					elmArea.innerHTML = valueOrPromise.innerHTML;
 				} else {
 					elmArea.innerHTML = valueOrPromise;
