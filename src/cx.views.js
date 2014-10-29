@@ -79,7 +79,7 @@
 				console.log('Action ', actionNameKey, 'not found on view', elm.view);
 			}
 		} else {
-			console.log('View ', elm.getAttribute('data-view') ,' for element', elm, ' not found');
+			console.log('cx: View', elm.getAttribute('data-view'), 'not found when triggering action', actionName, 'for element', elm);
 		}
 	}
 
@@ -170,6 +170,8 @@
 
 			Object.defineProperty(elm, 'view', {value: view});
 			viewInstances.push(view);
+		} else {
+			console.log('cx: View', viewName, 'used but not found on element', elm);
 		}
 	}
 
