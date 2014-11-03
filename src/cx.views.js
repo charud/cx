@@ -28,8 +28,15 @@
 			// Setup a handler for event delegation to all views and their actions
 			bindRoot();
 
+			// we need to know which views have already loaded to only call staticInit once per type of view
+			var initializedViews = {};
+
 			for (var i in viewInstances) {
 				var viewInstance = viewInstances[i];
+				if (viewInstance.staticInit && !(viewInstance.name in initializedViews)) {
+					viewInstance.staticInit();
+					initializedViews[viewInstance.name] = true;
+				}
 				if (viewInstance.init) {
 					var jsonData = util.getJsonAttributes(viewInstance.elm);
 					var tagData = util.getDataAttributes(viewInstance.elm);
@@ -181,6 +188,7 @@
 			var View = views[viewName];
 			var view = new View();
 			view.elm = elm;
+			view.name = viewName;
 
 			Object.defineProperty(elm, 'view', {value: view});
 			viewInstances.push(view);
