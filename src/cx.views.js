@@ -31,8 +31,11 @@
 			for (var i in viewInstances) {
 				var viewInstance = viewInstances[i];
 				if (viewInstance.init) {
-					var data = util.getDataAttributes(viewInstance.elm);
-					viewInstance.init(data);
+					var jsonData = util.getJsonAttributes(viewInstance.elm);
+					var tagData = util.getDataAttributes(viewInstance.elm);
+					var params = util.merge(jsonData, tagData);
+					viewInstance.params = params;
+					viewInstance.init(params);
 				}
 			}
 		},
@@ -63,7 +66,7 @@
 			// if the elment that triggered the event doesn't have a data-action
 			// look if any of its parents has it
 			elmAction = util.closest(elmAction, '[data-action]');
-			if(!elmAction) {
+			if (!elmAction) {
 				// there are no data-actions defined for this event, ignore the event
 				return;
 			}
@@ -158,7 +161,7 @@
 			}
 		};
 
-		View.prototype.areas = function(name) {
+		View.prototype.areas = function (name) {
 			return this.elm.querySelectorAll('[data-area=' + name + ']');
 		};
 
@@ -216,6 +219,32 @@
 				}
 			});
 			return data;
+		},
+
+		getJsonAttributes: function (elm) {
+			var scriptTag = elm.querySelector('script[type="application/json"]');
+			if (scriptTag) {
+				var strJson = scriptTag.innerHTML;
+				var json = JSON.parse(strJson);
+				return json;
+			} else {
+				return [];
+			}
+		},
+
+		merge: function (obj1, obj2) {
+			var merged = {};
+			for (var x in obj1) {
+				if (obj1.hasOwnProperty(x)) {
+					merged[x] = obj1[x];
+				}
+			}
+			for (var y in obj2) {
+				if (obj2.hasOwnProperty(y)) {
+					merged[y] = obj2[y];
+				}
+			}
+			return merged;
 		}
 
 	}
