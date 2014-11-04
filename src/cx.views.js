@@ -36,11 +36,13 @@
 					viewInstance.staticInit();
 					initializedViews[viewInstance.name] = true;
 				}
+
+				var jsonData = util.getJsonAttributes(viewInstance.elm);
+				var tagData = util.getDataAttributes(viewInstance.elm);
+				var params = util.merge(jsonData, tagData);
+				viewInstance.params = params;
+
 				if (viewInstance.init) {
-					var jsonData = util.getJsonAttributes(viewInstance.elm);
-					var tagData = util.getDataAttributes(viewInstance.elm);
-					var params = util.merge(jsonData, tagData);
-					viewInstance.params = params;
 					viewInstance.init(params);
 				}
 			}
