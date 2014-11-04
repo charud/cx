@@ -63,6 +63,8 @@
 
 	function bindRoot() {
 		root.addEventListener('click', onRootEvent);
+		// keyup for input fields
+		root.addEventListener('keyup', onRootEvent);
 	}
 
 	/**
@@ -88,6 +90,12 @@
 		var actionName = elmAction.getAttribute('data-action');
 		var params = util.getDataAttributes(elmAction);
 		delete params['action'];
+
+		// add the value attribute as a parameter for input fields
+		if (elmAction.value) {
+			params.value = elmAction.value;
+		}
+
 		emitAction(elmView, actionName, params, e);
 	}
 
