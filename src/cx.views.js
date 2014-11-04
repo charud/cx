@@ -22,8 +22,7 @@
 	cx.plugin('views', {
 		init: function () {
 			// Associate all elements with a data-view attribute with an instance of that view
-			var nsViews = document.querySelectorAll('[data-view]');
-			Array.prototype.forEach.call(nsViews, createViewForElement);
+			createViews(document.body);
 
 			// Setup a handler for event delegation to all views and their actions
 			bindRoot();
@@ -53,7 +52,10 @@
 		},
 
 		extend: function () {
-			return {view: registerView}
+			return {
+				view: registerView,
+				createViews: createViews
+			}
 		}
 	});
 
@@ -173,6 +175,12 @@
 		};
 
 		views[name] = View;
+	}
+
+	function createViews(elmRoot) {
+		var nsViews = elmRoot.querySelectorAll('[data-view]');
+		createViewForElement(elmRoot);
+		Array.prototype.forEach.call(nsViews, createViewForElement);
 	}
 
 	/**
