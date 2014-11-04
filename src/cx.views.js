@@ -163,7 +163,9 @@
 		 */
 		View.prototype.area = function (name, valueOrPromise) {
 			var elmArea = this.elm.querySelector('[data-area=' + name + ']');
-			if (valueOrPromise) {
+			if (typeof valueOrPromise === 'undefined') {
+				return elmArea;
+			} else {
 				// unbox the value if it is a promise
 				if (valueOrPromise.then) {
 					valueOrPromise.then(function (value) {
@@ -175,8 +177,6 @@
 				} else {
 					elmArea.innerHTML = valueOrPromise;
 				}
-			} else {
-				return elmArea;
 			}
 		};
 
