@@ -167,7 +167,9 @@
 				return elmArea;
 			} else {
 				// unbox the value if it is a promise
-				if (valueOrPromise.then) {
+				if (valueOrPromise === null) {
+					elmArea.innerHTML = '';
+				} else if (valueOrPromise.then) {
 					valueOrPromise.then(function (value) {
 						elmArea.innerHTML = value;
 					});
