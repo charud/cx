@@ -172,6 +172,8 @@
 				} else if (valueOrPromise.then) {
 					valueOrPromise.then(function (value) {
 						elmArea.innerHTML = value;
+						// make sure to initialize views for the loaded content
+						cx.createViews(elmArea);
 					});
 					// or if an element, use its innerHTML
 				} else if (valueOrPromise['innerHTML']) {
@@ -204,6 +206,13 @@
 	 */
 	function createViewForElement(elm) {
 		var viewName = elm.getAttribute('data-view');
+
+		// no data-view defined for this element? don't create a view for it
+		if (!viewName) return;
+
+		// does this element already have a view associated with it? don't create a new one
+		if (elm.view) return;
+
 		if (viewName in views) {
 			var View = views[viewName];
 			var view = new View();
