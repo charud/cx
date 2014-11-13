@@ -162,30 +162,41 @@
 		 * @returns {HTMLElement}
 		 */
 		View.prototype.area = function (name, valueOrPromise) {
-			var elmArea = this.elm.querySelector('[data-area=' + name + ']');
+			var elmArea = this.findFirst('[data-area=' + name + ']');
 			if (typeof valueOrPromise === 'undefined') {
 				return elmArea;
 			} else {
-				// unbox the value if it is a promise
-				if (valueOrPromise === null) {
-					elmArea.innerHTML = '';
-				} else if (valueOrPromise.then) {
-					valueOrPromise.then(function (value) {
-						elmArea.innerHTML = value;
-						// make sure to initialize views for the loaded content
-						cx.createViews(elmArea);
-					});
-					// or if an element, use its innerHTML
-				} else if (valueOrPromise['innerHTML']) {
-					elmArea.innerHTML = valueOrPromise.innerHTML;
-				} else {
-					elmArea.innerHTML = valueOrPromise;
-				}
+				setElementValue(elmArea, valueOrPromise);
 			}
 		};
 
-		View.prototype.areas = function (name) {
-			return this.elm.querySelectorAll('[data-area=' + name + ']');
+		View.prototype.areas = function (name, valueOrPromise) {
+			var areas = this.find('[data-area=' + name + ']');
+			if (typeof valueOrPromise === 'undefined') {
+				return areas;
+			} else {
+				areas.forEach(function(area) {
+					setElementValue(area, valueOrPromise);
+				});
+			}
+		};
+
+		var setElementValue = function (elm, valueOrPromise) {
+			// unbox the value if it is a promise
+			if (valueOrPromise === null) {
+				elm.innerHTML = '';
+			} else if (valueOrPromise.then) {
+				valueOrPromise.then(function (value) {
+					elm.innerHTML = value;
+					// make sure to initialize views for the loaded content
+					cx.createViews(elm);
+				});
+				// or if an element, use its innerHTML
+			} else if (valueOrPromise['innerHTML']) {
+				elm.innerHTML = valueOrPromise.innerHTML;
+			} else {
+				elm.innerHTML = valueOrPromise;
+			}
 		};
 
 		views[name] = View;
