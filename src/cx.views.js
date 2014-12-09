@@ -96,7 +96,19 @@
 			params.value = elmAction.value;
 		}
 
-		emitAction(elmView, actionName, params, e);
+		// create a custom event object so that we can modify currentTarget
+		// (the normal event object does not appear to be mutable)
+		var cxEvent = {
+			originalEvent: e,
+			target: e.target,
+			currentTarget: e.currentTarget
+		};
+
+		// update e.currentTarget to be equal to the data-action element so it can be traced by the view code
+		// (the previous e.currentTarget will always be the view root element, typically body)
+		cxEvent.currentTarget = elmAction;
+
+		emitAction(elmView, actionName, params, cxEvent);
 	}
 
 	function emitAction(elm, actionName, params, e) {
@@ -175,7 +187,7 @@
 			if (typeof valueOrPromise === 'undefined') {
 				return areas;
 			} else {
-				areas.forEach(function(area) {
+				areas.forEach(function (area) {
 					setElementValue(area, valueOrPromise);
 				});
 			}
@@ -233,7 +245,7 @@
 			Object.defineProperty(elm, 'view', {value: view});
 			viewInstances.push(view);
 		} else {
-			console.log('cx: View', viewName, 'used but not found on element', elm);
+			// console.log('cx: View', viewName, 'used but not found on element', elm);
 		}
 	}
 
