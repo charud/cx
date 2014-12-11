@@ -19,6 +19,8 @@
 
 	var root = document.body;
 
+	var isPageInitialized = false;
+
 	cx.plugin('views', {
 		init: function () {
 			// Associate all elements with a data-view attribute with an instance of that view
@@ -31,21 +33,24 @@
 			var initializedViews = {};
 
 			for (var i in viewInstances) {
-				var viewInstance = viewInstances[i];
-				if (viewInstance.staticInit && !(viewInstance.name in initializedViews)) {
-					viewInstance.staticInit();
-					initializedViews[viewInstance.name] = true;
+				var view = viewInstances[i];
+				if (view.staticInit && !(view.name in initializedViews)) {
+					view.staticInit();
+					initializedViews[view.name] = true;
 				}
 
-				var jsonData = util.getJsonAttributes(viewInstance.elm);
-				var tagData = util.getDataAttributes(viewInstance.elm);
+				var jsonData = util.getJsonAttributes(view.elm);
+				var tagData = util.getDataAttributes(view.elm);
 				var params = util.merge(jsonData, tagData);
-				viewInstance.params = params;
+				view.params = params;
 
-				if (viewInstance.init) {
-					viewInstance.init(params);
+				if (view.init) {
+					view.init(params);
 				}
 			}
+
+			// this way we know that to init views, that renders later, immediately
+			isPageInitialized = true;
 		},
 
 		info: function () {
@@ -214,9 +219,11 @@
 		views[name] = View;
 	}
 
-	function createViews(elmRoot) {
+	function createViews(elmRoot, excludeRoot) {
 		var nsViews = elmRoot.querySelectorAll('[data-view]');
-		createViewForElement(elmRoot);
+		if (!excludeRoot) {
+			createViewForElement(elmRoot);
+		}
 		Array.prototype.forEach.call(nsViews, createViewForElement);
 	}
 
@@ -244,6 +251,15 @@
 
 			Object.defineProperty(elm, 'view', {value: view});
 			viewInstances.push(view);
+
+			// init this view immediately if the page is already initialized
+			// (if this view has been loaded later through ajax for example)
+			if (isPageInitialized) {
+				if (view.init) {
+					view.init();
+				}
+			}
+
 		} else {
 			// console.log('cx: View', viewName, 'used but not found on element', elm);
 		}
