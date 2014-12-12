@@ -304,7 +304,7 @@
 		var jsonAttributesId = elmData.paramsId;
 		if (jsonAttributesId) {
 			// fetch and check if a script tag with that id exists
-			var scriptTag = elm.querySelector('script[type="application/json"]');
+			var scriptTag = elm.querySelector('#' + jsonAttributesId);
 			if (scriptTag) {
 				var strJson = scriptTag.innerHTML;
 				var json = JSON.parse(strJson);
