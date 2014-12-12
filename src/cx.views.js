@@ -255,6 +255,13 @@
 			// init this view immediately if the page is already initialized
 			// (if this view has been loaded later through ajax for example)
 			if (isPageInitialized) {
+
+				// get params for the widget
+				var jsonData = util.getJsonAttributes(view.elm);
+				var tagData = util.getDataAttributes(view.elm);
+				var params = util.merge(jsonData, tagData);
+				view.params = params;
+
 				if (view.init) {
 					view.init();
 				}
@@ -302,6 +309,7 @@
 		// fetch the data-params-id which points to a script tag with that id
 		var elmData = util.getDataAttributes(elm);
 		var jsonAttributesId = elmData.paramsId;
+
 		if (jsonAttributesId) {
 			// fetch and check if a script tag with that id exists
 			var scriptTag = elm.querySelector('#' + jsonAttributesId);
