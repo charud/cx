@@ -265,39 +265,45 @@
 		}
 	}
 
-	var util = {
-		// http://stackoverflow.com/questions/15329167/closest-ancestor-matching-selector-using-native-dom
-		closest: function (elm, selector) {
-			var matchesSelector = elm.matches || elm.webkitMatchesSelector || elm.mozMatchesSelector || elm.msMatchesSelector;
-			while (elm) {
-				if (matchesSelector.bind(elm)(selector)) {
-					return elm;
-				} else {
-					elm = elm.parentElement;
-				}
+	var util = {};
+
+	// http://stackoverflow.com/questions/15329167/closest-ancestor-matching-selector-using-native-dom
+	util.closest = function (elm, selector) {
+		var matchesSelector = elm.matches || elm.webkitMatchesSelector || elm.mozMatchesSelector || elm.msMatchesSelector;
+		while (elm) {
+			if (matchesSelector.bind(elm)(selector)) {
+				return elm;
+			} else {
+				elm = elm.parentElement;
 			}
-			return false;
-		},
+		}
+		return false;
+	};
 
-		// http://stackoverflow.com/questions/4187032/get-list-of-data-attributes-using-javascript-jquery
-		toCamelCase: function (str) {
-			return str.replace(/-(.)/g, function ($0, $1) {
-				return $1.toUpperCase();
-			});
-		},
+	// http://stackoverflow.com/questions/4187032/get-list-of-data-attributes-using-javascript-jquery
+	util.toCamelCase = function (str) {
+		return str.replace(/-(.)/g, function ($0, $1) {
+			return $1.toUpperCase();
+		});
+	};
 
-		// http://stackoverflow.com/questions/4187032/get-list-of-data-attributes-using-javascript-jquery
-		getDataAttributes: function (elm) {
-			var data = {};
-			[].forEach.call(elm.attributes, function (attr) {
-				if (/^data-/.test(attr.name)) {
-					data[util.toCamelCase(attr.name.substr(5))] = attr.value;
-				}
-			});
-			return data;
-		},
+	// http://stackoverflow.com/questions/4187032/get-list-of-data-attributes-using-javascript-jquery
+	util.getDataAttributes = function (elm) {
+		var data = {};
+		[].forEach.call(elm.attributes, function (attr) {
+			if (/^data-/.test(attr.name)) {
+				data[util.toCamelCase(attr.name.substr(5))] = attr.value;
+			}
+		});
+		return data;
+	};
 
-		getJsonAttributes: function (elm) {
+	util.getJsonAttributes = function (elm) {
+		// fetch the data-params-id which points to a script tag with that id
+		var elmData = util.getDataAttributes(elm);
+		var jsonAttributesId = elmData.paramsId;
+		if (jsonAttributesId) {
+			// fetch and check if a script tag with that id exists
 			var scriptTag = elm.querySelector('script[type="application/json"]');
 			if (scriptTag) {
 				var strJson = scriptTag.innerHTML;
@@ -306,23 +312,25 @@
 			} else {
 				return [];
 			}
-		},
-
-		merge: function (obj1, obj2) {
-			var merged = {};
-			for (var x in obj1) {
-				if (obj1.hasOwnProperty(x)) {
-					merged[x] = obj1[x];
-				}
-			}
-			for (var y in obj2) {
-				if (obj2.hasOwnProperty(y)) {
-					merged[y] = obj2[y];
-				}
-			}
-			return merged;
+		} else {
+			return [];
 		}
+	};
 
-	}
+	util.merge = function (obj1, obj2) {
+		var merged = {};
+		for (var x in obj1) {
+			if (obj1.hasOwnProperty(x)) {
+				merged[x] = obj1[x];
+			}
+		}
+		for (var y in obj2) {
+			if (obj2.hasOwnProperty(y)) {
+				merged[y] = obj2[y];
+			}
+		}
+		return merged;
+	};
+
 
 })();
