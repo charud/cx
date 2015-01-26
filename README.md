@@ -194,7 +194,7 @@ Actions
 --
 Events can be triggered using the data-action attribute. When an element with
 a data-action attribute is clicked the event will be routed to its corresponding camel-cased
-method, with an "on" prefix, in the view. A click on a the following div:
+method, with an "on" prefix, in the view. A click on the following div:
 
 ```
 <div data-view='foo'>
@@ -206,8 +206,8 @@ Will trigger the method in the following example view:
 
 ```
 cx.view('foo', function() {
-	this.onPressed = function(data, e) {
-		e.target.innerHTML = 'I was pressed!';
+	this.onPressed = function(params, e) {
+		e.currentTarget.innerHTML = 'I was pressed!';
 	};
 });
 ```
