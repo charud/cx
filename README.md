@@ -180,7 +180,7 @@ If you wish to inject parameters from the backend into a view, data attributes m
 </div>
 ```
 
-Parameters injected with JSON can be read the same way as parameters set by data attributes can:
+Parameters injected with JSON can be accessed the same way as parameters set by data attributes:
 
 ```
 cx.view('myView', function() {
