@@ -16,27 +16,6 @@ boilerplate.
 
 cx aims to be small and compatible so it does not include or require any other library. It has a few helpers that should limit the need for libraries like jQuery. But you are completely free to complement cx with other libraries to make your life simpler. I work with the combination cx + jQuery myself in a few projects at work.
 
-Get started
-==
-Include cx.js and cx.views.js at the bottom of your page and run cx():
-
-```
-[...]
-<div data-view='myView'></div>
-
-<script type="text/javascript" src="js/lib/cx.js"></script>
-<script type="text/javascript" src="js/lib/cx.views.js"></script>
-<script type="text/javascript" src="js/views/myView.js"></script>
-<script type="text/javascript">
-    cx();
-    // cx.info(); for optional debug info in console about loaded views and internal cx plugins 
-</script>
-</body>
-</html>
-```
-
-cx playes nice with minifiers like uglify and the order in which the files are included does not matter.
-
 What does it do
 ==
 The main concept that makes cx useful is its views. A view looks like this in HTML:
@@ -90,6 +69,27 @@ cx.view('counter', function() {
 ```
 
 The two counters will count independently from each other.
+
+Get started
+==
+Include cx.js and cx.views.js at the bottom of your page and run cx():
+
+```
+[...]
+<div data-view='myView'></div>
+
+<script type="text/javascript" src="js/lib/cx.js"></script>
+<script type="text/javascript" src="js/lib/cx.views.js"></script>
+<script type="text/javascript" src="js/views/myView.js"></script>
+<script type="text/javascript">
+    cx();
+    // cx.info(); for optional debug info in console about loaded views and internal cx plugins 
+</script>
+</body>
+</html>
+```
+
+cx playes nice with minifiers like uglify and the order in which the files are included does not matter.
 
 Views
 ==
