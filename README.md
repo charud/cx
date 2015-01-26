@@ -258,7 +258,7 @@ that matches the name supplied. If a second parameter is supplied the area's inn
 
 ```
 this.area('myArea', 'myValue'); // pure value
-this.area('myArea', cx.get('/myArea/1')); // promise
+this.area('myArea', cx.get('/api/somedata')); // promise
 this.area('myArea', this.area('anotherArea')); // another element
 ```
 
@@ -270,27 +270,27 @@ The following tab module is an example of these concepts working together
 HTML:
 
 ```
-	<div data-view="tabs">
-        <div>
-            <div data-action="select-tab" data-target="tab1">Tab 1</div>
-            <div data-action="select-tab" data-target="tab2">Tab 2</div>
-            <div data-action="select-tab" data-target="tab3">Tab 3</div>
-        </div>
-        <div data-area="tab1" style="display: none">The first tab</div>
-        <div data-area="tab2" style="display: none">The second tab</div>
-        <div data-area="tab3" style="display: none">The third tab</div>
-        <div data-area="body"></div>
-    </div>
+<div data-view="tabs">
+	<div>
+	    <div data-action="select-tab" data-target="tab1">Tab 1</div>
+	    <div data-action="select-tab" data-target="tab2">Tab 2</div>
+	    <div data-action="select-tab" data-target="tab3">Tab 3</div>
+	</div>
+	<div data-area="tab1" style="display: none">The first tab</div>
+	<div data-area="tab2" style="display: none">The second tab</div>
+	<div data-area="tab3" style="display: none">The third tab</div>
+	<div data-area="body"></div>
+</div>
 ```
 
 Javascript:
 
 ```
-	cx.view('tabs', {
-		onSelectTab: function() {
-			this.area('body', this.area(data.target));
-		}
-	});
+cx.view('tabs', {
+	onSelectTab: function() {
+		this.area('body', this.area(data.target));
+	}
+});
 ```
 
 Events
@@ -299,22 +299,84 @@ Events
 Custom events can be triggered or listened to by using the event module
 
 ```
-	cx.emitEvent([elm], [eventName], [eventParameters]);
-	
-	cx.onEvent([elm], [eventName], [callback]);
+cx.emitEvent([elm], [eventName], [eventParameters]);
+
+cx.onEvent([elm], [eventName], [callback]);
 ```
 	
 Example:
 
 ```
-	var myDiv = document.getElementById('someDiv');
+var myDiv = document.getElementById('someDiv');
 
-	cx.onEvent(myDiv, 'selected', function(params) { 
-		console.log(params.foo, ' was selected'); 
-	});
-	
-	cx.emitEvent(myDiv, 'selected', { foo: 'bar' });
+cx.onEvent(myDiv, 'selected', function(params) { 
+	console.log(params.foo, ' was selected'); 
+});
+
+cx.emitEvent(myDiv, 'selected', { foo: 'bar' });
 ```
+	
+Communication between views
+--
+
+Sometimes you want to control another another view. A parent view can get an instance of and control its child views, and child views can emit events for their parents to listen to:
+
+```
+<div data-view='imageGallery'>
+	<div data-view='selector'>
+		<!-- data-action will prevent link navigation -->
+		<a href="#" data-action="select" data-src="apple.png" />
+		<a href="#" data-action="select" data-src="tree.png" />
+	</div>
+	<img data-area='selectedImage' />
+</div>
+```
+
+Here we want the selector to take care of all logic relating to image selection. Not that much in this example,
+but could get a bit longer if you need to do something more like a dropbox. First we get hold of the view of the selector (using the view property that all DOM elements with a data-view attribute gets), and then we can subscribe to the 'selection' it will emit.
+
+```
+cx.view('imageGallery', function() {
+	this.init = function() {
+		var selector = this.find('[data-area="selector"]').view;
+		var that = this;
+		// if you are using jQuery: $(selector).on('selection', ...) would work too
+		cx.onEvent(selector, 'selection', function(src) {
+			that.area('selectedImage').src = src;
+		});
+	};
+});
+
+cx.view('selector', function() {
+	this.onSelect = function(params) {
+		// if you are using jQuery: $(this).trigger('selection', params.src) would work too
+		cx.emitEvent(this, 'selection', params.src);
+	};
+});
+```
+
+Using the view instance the parent can also call methods directly on its child view:
+
+```
+cx.view('imageGallery', function() {
+	this.init = function() {
+		var selector = this.find('[data-area="selector"]').view;
+		if (selector) {
+			selector.gotoPage(2);
+		}
+	};
+});
+
+cx.view('selector', function() {
+	this.gotoPage = function(pageNumber) {
+		var that = this;
+		cx.get('/api/pages/' + pageNumber).then(function(result) {
+			that.elm.innerHTML = result;
+		});
+	}
+});
+```
+
 	
 License
 ==
