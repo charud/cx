@@ -156,7 +156,7 @@ You can pass a View parameters to customize its behavior. It is done using data 
 </div>
 ```
 	
-And can be read like this:
+They can be accessed like this:
 
 ```
 cx.view('myView', function() {
