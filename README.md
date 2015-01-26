@@ -288,8 +288,8 @@ Javascript:
 
 ```
 cx.view('tabs', {
-	onSelectTab: function() {
-		this.area('body', this.area(data.target));
+	onSelectTab: function(params) {
+		this.area('body', this.area(params.target));
 	}
 });
 ```
