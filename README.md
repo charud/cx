@@ -89,7 +89,7 @@ Include cx.js and cx.views.js at the bottom of your page and run cx():
 </html>
 ```
 
-cx playes nice with minifiers like uglify and the order in which the files are included does not matter.
+cx plays nicely with minifiers like uglify and the order in which the files are included does not matter.
 
 Views
 ==
