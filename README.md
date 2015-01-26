@@ -249,6 +249,7 @@ And
 cx.view('foo', function() {
 	this.init = function() {
 		this.area('myArea').innerHTML = 'foobar';
+		// or simply this.area('myArea', 'foobar')
 	};
 });
 ```
