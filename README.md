@@ -1,11 +1,72 @@
 cx
 ==
 
-A frontend framework with maintainability, flexibility and simplicity in mind 
+cx is short for context. It provides a context and encapsulation for
+your views on the frontend, in a lightweight and non-obtrusive
+way.
+
+Motivation
+==
+Single-page applications are all the hype nowadays. But I wrote this
+library because many of my private and professional projects are still
+classical multipage applications with most of the logic on the backend. 
+
+cx provides a way to prevent JavaScript spaghetti with minimal abstraction and 
+boilerplate. 
+
+Frameworks like Angular, that enables a heavy amount of logic,
+rendering and routing on the frontend seems better fitting for 
+really frontend-heavy projects. And my previous experience with Angular from past projects has shown
+that it can become very slow, even with workarounds to improve its speed.
+
+What does it do
+==
+The main concept that makes cx useful is its views. A view looks like this in HTML:
+
+	<div data-view='expandable'>
+		Lorem ipsum dolor sit amet, consectetur... <span data-action="expand">Expand</span>
+   		<div data-area="long">dipiscing elit. Mauris tempor faucibus condimentum. Integer facilisis erat sem, ultrices tincidunt odio vulputate eu.</div>
+	</div>
+	
+And like this in JS:
+
+	cx.view('expandable', function() {
+		this.init = function() {
+			this.area('long').style.display = 'none';
+		};
+	
+		this.onExpand = function() {
+			this.area('long').style.display = 'block';	
+		};
+	});
+
+The data-action attribute makes it easier to follow what is going to happen when the user interacts with your template. Because the action belongs to its parent view you will always know where its handler is defined (no more searches after hidden Javascript event handlers that sneakily attaches themselves to elements).
+
+Since cx makes no assumptions about whether you are using jQuery or any other frontend library, all elements are handled natively. Because of that the data-area attribute is there for convinience. It is basically a wrapper for querySelector() within your view. It also has some extra functionality like setting values and unwrapping promises.
+
+The view is resuable and every element with a data-view will have its one context, so defining non-shared state works:
+
+	<div data-view='counter'>
+		Number A: <div data-area="number">0</div>
+		<div data-action='add'>Add</div>
+	</div>
+	
+	<div data-view='counter'>
+		Number B: <div data-area="number">0</div>
+		<div data-action='add'>Add</div>
+	</div>
+	
+	cx.view('counter', function() {
+		this.number = 0;
+		this.onAdd = function() {
+			this.area('number', ++this.number);
+		}
+	});
+	
+The two counters will count independently from each other.
 
 Views
 ==
-
 
 Definition
 --
