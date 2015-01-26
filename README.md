@@ -45,9 +45,9 @@ The data-action attribute makes it easier to follow what is going to happen when
 
 Since cx makes no assumptions about whether you are using jQuery or any other frontend library, all elements are handled natively. Because of that the data-area attribute is there for convinience. It is basically a wrapper for querySelector() within your view. It also has some extra functionality like setting values and unwrapping promises.
 
-You can add as many data-views and actions as you wish without having to worrying about things slowing down. All data-actions are handled by one single event for clicks, and one for keydown (useful for input fields). The code will then look for the closest data-view that the click action should be routed to.
+You can add as many data-views and actions as you wish without having to worry about things slowing down. All data-actions are handled by one single event for clicks, and one for keydown (useful for input fields). The code will then look for the closest data-view that the click action should be routed to.
 
-The view is resuable and every element with a data-view will have its one context, so defining non-shared state works:
+The view is resuable and every element with a data-view will have its own context, so defining non-shared state works:
 
 ```
 <div data-view='counter'>
