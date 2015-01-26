@@ -68,7 +68,7 @@ cx.view('counter', function() {
 });
 ```
 
-The two counters will count independently from each other.
+The two counters will increase independently from each other.
 
 Get started
 ==
