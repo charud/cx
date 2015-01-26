@@ -110,8 +110,8 @@ function Menu() {
 
 }
 
-Menu.prototype.onSelectItem = function(data, e) {
-	console.log(data, this.elm);
+Menu.prototype.onSelectItem = function(params) {
+	console.log('element', this.elm);
 }
 
 cx.view('menu', Menu);
@@ -124,8 +124,8 @@ that points to your view.
 
 ```
 cx.view('menu', {
-	onSelectItem: function(data, e) {
-		console.log(data, this.elm);
+	onSelectItem: function(params) {
+		console.log('element', this.elm);
 	}
 };
 ```
@@ -137,8 +137,8 @@ This is the least performant option since this function will be redefined for ev
 
 ```
 cx.view('menu', function() {
-	this.onSelectItem = function() {
-		console.log(data, this.elm);
+	this.onSelectItem = function(params) {
+		console.log('element', this.elm);
 	};
 });
 ```
