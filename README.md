@@ -226,8 +226,8 @@ And retrieved like this:
 
 ```
 cx.view('foo', function() {
-	this.onPressed = function(data, e) {
-		this.elm.innerHTML = data.name + ' was pressed!';
+	this.onPressed = function(params, e) {
+		this.elm.innerHTML = params.name + ' was pressed!';
 	};
 });
 ```
