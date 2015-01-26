@@ -277,9 +277,9 @@ HTML:
 	    <div data-action="select-tab" data-target="tab2">Tab 2</div>
 	    <div data-action="select-tab" data-target="tab3">Tab 3</div>
 	</div>
-	<div data-area="tab1" style="display: none">The first tab</div>
-	<div data-area="tab2" style="display: none">The second tab</div>
-	<div data-area="tab3" style="display: none">The third tab</div>
+	<div data-area="tab1" style="display: none">The first tab body</div>
+	<div data-area="tab2" style="display: none">The second tab body</div>
+	<div data-area="tab3" style="display: none">The third tab body</div>
 	<div data-area="body"></div>
 </div>
 ```
