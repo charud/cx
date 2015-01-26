@@ -296,7 +296,7 @@ cx.view('tabs', {
 Events
 --
 
-Custom events can be triggered or listened to by using the event module
+Custom events can be triggered or listened to by using the event module (cx.events.js). Useful is you are not complementing cx with another library that fulfils the same purpose.
 
 ```
 cx.emitEvent([elm], [eventName], [eventParameters]);
@@ -314,6 +314,25 @@ cx.onEvent(myDiv, 'selected', function(params) {
 });
 
 cx.emitEvent(myDiv, 'selected', { foo: 'bar' });
+```
+
+Ajax
+--
+Ajax requests (XMLHttpRequest) can be done using the ajax module (cx.ajax.js). Useful is you are not complementing cx with another library that fulfils the same purpose.
+
+It has two methods: cx.get(url) for GET requests and cx.post(url, data) for POST requests. They both return a promise.
+For now they are dependent on RSVP.js, so you would need to bundle your application with it for these methods to work.
+
+```
+cx.view('myView', function() {
+	this.loadMore = function() {
+		this.params.pageNumber++;
+		var that = this;
+		cx.get('/api/pages/' + this.params.pageNumber).then(function(result) {
+			that.elm.innerHTML = result;
+		});
+	};
+});
 ```
 	
 Communication between views
@@ -361,15 +380,14 @@ Using the view instance the parent can also call methods directly on its child v
 cx.view('imageGallery', function() {
 	this.init = function() {
 		var selector = this.find('[data-area="selector"]').view;
-		if (selector) {
-			selector.gotoPage(2);
-		}
+		selector.gotoPage(2);
 	};
 });
 
 cx.view('selector', function() {
 	this.gotoPage = function(pageNumber) {
 		var that = this;
+		// Making an ajax request, cx.get is simply a promise enabled wrapper for XMLHttpRequest
 		cx.get('/api/pages/' + pageNumber).then(function(result) {
 			that.elm.innerHTML = result;
 		});
