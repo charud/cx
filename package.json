@@ -1,7 +1,7 @@
 {
-  "name": "src",
+  "name": "cx",
   "version": "0.0.0",
-  "description": "src frontend framework",
+  "description": "A library for the frontend to encapsulate views",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
