@@ -166,7 +166,7 @@ cx.view('myView', function() {
 });
 ```
 
-If you wish to inject parameters from the backend into a view, data attributes might be too clumpy. Parameters can also be passed with JSON like this:
+If you wish to inject parameters from the backend into a view, data attributes might be too clumsy. Parameters can also be passed with JSON like this:
 
 ```
 <div data-vew="myView" data-params-id="myViewParams">
