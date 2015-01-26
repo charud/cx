@@ -14,11 +14,6 @@ classical multipage applications with most of the logic on the backend.
 cx provides a way to prevent JavaScript spaghetti with minimal abstraction and 
 boilerplate. 
 
-Frameworks like Angular, that enables a heavy amount of logic,
-rendering and routing on the frontend seems better fitting for 
-really frontend-heavy projects. And my previous experience with Angular from past projects has shown
-that it can become very slow, even with workarounds to improve its speed.
-
 What does it do
 ==
 The main concept that makes cx useful is its views. A view looks like this in HTML:
