@@ -194,7 +194,7 @@ Actions
 --
 Events can be triggered using the data-action attribute. When an element with
 a data-action attribute is clicked the event will be routed to its corresponding camel-cased
-method in the view. A click on a the following div:
+method, with an "on" prefix, in the view. A click on a the following div:
 
 ```
 <div data-view='foo'>
