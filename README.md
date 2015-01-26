@@ -131,9 +131,9 @@ cx.view('menu', {
 ```
 
 #### By providing an anonymous function
-And pass it directly to the view function. It gives the opportunity to use a private scope and is less verbose than using the solution above with prototype. 
+And pass it directly to the view function. This gives you a private scope and it is less verbose than the first solution above with prototype. 
 
-This is the least performant option since this function will be redefined for every instance of the view that is created, but this might not matter if your applications doesn't deal with a large amount of views.
+This is the least performant option since this function will be redefined for every instance of the view that is created, but this might not matter if your applications does not deal with a large amount of views.
 
 ```
 cx.view('menu', function() {
