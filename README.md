@@ -339,14 +339,14 @@ cx.view('myView', function() {
 Communication between views
 --
 
-Sometimes you want to control another another view. A parent view can get an instance of and control its child views, and child views can emit events for their parents to listen to:
+Sometimes you want a view to control another view. A parent view can get an instance of and control its child views, and child views can emit events for their parents to listen to:
 
 ```
 <div data-view='imageGallery'>
 	<div data-view='selector'>
 		<!-- data-action will prevent link navigation -->
-		<a href="#" data-action="select" data-src="apple.png" />
-		<a href="#" data-action="select" data-src="tree.png" />
+		<a href="#" data-action="select" data-src="apple.png">Show apple</a>
+		<a href="#" data-action="select" data-src="tree.png">Show tree</a>
 	</div>
 	<img data-area='selectedImage' />
 </div>
