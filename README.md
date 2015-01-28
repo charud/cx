@@ -352,8 +352,8 @@ Sometimes you want a view to control another view. A parent view can get an inst
 </div>
 ```
 
-Here we want the selector to take care of all logic relating to image selection. Not that much in this example,
-but could get a bit longer if you need to do something more like a dropbox. First we get hold of the view of the selector (using the view property that all DOM elements with a data-view attribute gets), and then we can subscribe to the 'selection' it will emit.
+Here we want the data-view called "selector" to take care of all logic relating to image selection. Not that much in this example,
+but could get a bit longer if you need to do something more like a dropbox. And the outer data-view called "imageGallery" to control which image is displayed. First we get hold of the view of the selector (using the view property that all DOM elements with a data-view attribute gets), and then we can subscribe to the 'selection' it will emit.
 
 ```
 cx.view('imageGallery', function() {
