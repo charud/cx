@@ -25,8 +25,8 @@
 		if (plugin.extend) {
 			var extensions = plugin.extend();
 			for (var key in extensions) {
-				if (extensions.hasOwnProperty(key) && typeof cx[key] === 'undefined') {
-					cx[key] = extensions[key];
+				if (extensions.hasOwnProperty(key) && typeof _cx[key] === 'undefined') {
+					_cx[key] = extensions[key];
 				}
 			}
 		}
