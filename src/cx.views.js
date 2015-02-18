@@ -220,11 +220,20 @@
 	}
 
 	function createViews(elmRoot, excludeRoot) {
-		var nsViews = elmRoot.querySelectorAll('[data-view]');
-		if (!excludeRoot) {
-			createViewForElement(elmRoot);
+		if (elmRoot instanceof Array) {
+			// There is no root element, then pass the list of elements to this method recursively
+			// to create views of all of their respective childs... as if this method would be called multiple times
+			elmRoot.forEach(function (elm) {
+				createViews(elm, false);
+			});
+		} else if (elmRoot instanceof Element) { // Ignore text nodes and other non-elements
+			var nsViews = elmRoot.querySelectorAll('[data-view]');
+			if (!excludeRoot) {
+				createViewForElement(elmRoot);
+			}
+			Array.prototype.forEach.call(nsViews, createViewForElement);
 		}
-		Array.prototype.forEach.call(nsViews, createViewForElement);
+
 	}
 
 	/**
@@ -235,6 +244,10 @@
 	 * @param elm
 	 */
 	function createViewForElement(elm) {
+
+		// Ignore text-nodes and other non-elements
+		if (elm instanceof Element === false) return;
+
 		var viewName = elm.getAttribute('data-view');
 
 		// no data-view defined for this element? don't create a view for it
