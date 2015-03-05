@@ -125,7 +125,11 @@
 				console.log('Action ', actionNameKey, 'not found on view', elm.view);
 			}
 		} else {
-			console.log('cx: View', elm.getAttribute('data-view'), 'not found when triggering action', actionName, 'for element', elm);
+			if (elm) {
+				console.log('cx: View', elm.getAttribute('data-view'), 'not found when triggering action', actionName, 'on element', e.currentTarget);
+			} else {
+				console.log('cx: No view found when triggering action', actionName, 'on element', e.currentTarget);
+			}
 		}
 	}
 
