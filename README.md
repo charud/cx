@@ -402,7 +402,7 @@ License
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Charlie Rudenstål
+Copyright (c) 2014-2015 Charlie Rudenstål
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
