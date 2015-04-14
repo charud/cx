@@ -23,18 +23,29 @@
     </div>
     <div data-area="tab1" class="hidden">The first tab</div>
     <div data-area="tab2" class="hidden" data-url="/gallery/3"></div>
-    <div data-area="tab3" class="hidden">The third tab</div>
-    <div data-area="body" class="tabs-body"></div>
+    <div data-area="tab3" class="hidden">
+        <p>A gallery view inside a tab view</p>
+        <div data-view="gallery" data-url="/gallery/:index">
+            <div data-area="gallery-body"></div>
+            <div class="l-hlist">
+                <div data-action="prev" class="l-hlist-item btn">Previous</div>
+                <div data-action="next" class="l-hlist-item btn">Next</div>
+            </div>
+        </div>
+    </div>
+    <div data-area="tabs-body" class="tabs-body"></div>
 </div>
 
 <h1>Gallery</h1>
 <div data-view="gallery" data-url="/gallery/:index">
-    <div data-area="body"></div>
+    <div data-area="gallery-body"></div>
     <div class="l-hlist">
         <div data-action="prev" class="l-hlist-item btn">Previous</div>
         <div data-action="next" class="l-hlist-item btn">Next</div>
     </div>
 </div>
+
+
 
 <script src="rsvp/rsvp.js"></script>
 

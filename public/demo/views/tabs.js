@@ -22,7 +22,8 @@
 		if (newContent.getAttribute('data-url')) {
 			newContent = cx.get(newContent.getAttribute('data-url'));
 		}
-		this.area('body', newContent);
+
+		this.area('tabs-body', newContent);
 
 		// update selection to match the now selected tab
 		this.find('[data-target]').forEach(function (elm) {

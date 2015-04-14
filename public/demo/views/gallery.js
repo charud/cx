@@ -20,7 +20,7 @@
 
 		this.showSlide = function (index) {
 			curIndex = index;
-			this.area('body', cx.get(this.url.replace(':index', index)));
+			this.area('gallery-body', cx.get(this.url.replace(':index', index)));
 		};
 
 	});

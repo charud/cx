@@ -89,7 +89,7 @@
 				return;
 			}
 		}
-		e.stopPropagation();
+		//e.stopPropagation();
 		e.preventDefault();
 		var elmView = util.closest(elmAction, '[data-view]');
 		var actionName = elmAction.getAttribute('data-action');
@@ -215,8 +215,10 @@
 				// or if an element, use its innerHTML
 			} else if (valueOrPromise['innerHTML']) {
 				elm.innerHTML = valueOrPromise.innerHTML;
+				cx.createViews(elm);
 			} else {
 				elm.innerHTML = valueOrPromise;
+				cx.createViews(elm);
 			}
 		};
 
@@ -280,7 +282,7 @@
 				view.params = params;
 
 				if (view.init) {
-					view.init();
+					view.init(params);
 				}
 			}
 
